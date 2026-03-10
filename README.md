@@ -22,9 +22,15 @@ Personal portfolio website for Venkatesh Medamoni, Senior Salesforce Developer w
 
 ## 🛠 Tech Stack
 
-- HTML5, CSS3, Vanilla JavaScript
-- Google Fonts (Playfair Display, DM Sans, DM Mono)
-- No frameworks, no dependencies — single file
+- Salesforce Dev:	Apex (Triggers, Batch, Queueable, Future), LWC, Aura, Visualforce, SOQL/SOSL, Flow Builder, Process Builder, OmniStudio, Platform Events, CDC
+- Clouds:	Sales, Service, Financial Services (FSC), Marketing, Experience, Health, Data, Revenue, Veeva, Field Service, CPQ
+- Integrations:	REST, SOAP, MuleSoft, Salesforce Connect, Heroku Connect, External Services, OAuth, SSO, Tableau Canvas Adapter (Sparkler), Salesforce Functions
+- DevOps / CI/CD:	Jenkins, Flosum, Copado, AutoRABIT, Salesforce DX, GitHub, VS Code, Salesforce CLI, Unlocked Packages, Shell & Python Scripting
+- Testing:	Apex Test Framework, ApexMocks, Jest (LWC), Selenium, Provar, Tricentis Tosca, Testim, Mabl, ACCELQ, Mocha
+- Data & Tools:	Data Loader, Workbench, Postman, Jira, Tableau CRM (Einstein Analytics), Informatica Cloud, AWS Connect, ServiceNow, Conga
+- Security:	Profiles, Roles, Permission Sets, Shield Encryption, Field & Record-level Security, GDPR/HIPAA Compliance
+- Languages:	Java, JavaScript, Python, XML, HTML5, CSS3, SQL, JSON, C, C#, Ruby
+
 
 ---
 
