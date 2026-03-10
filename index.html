@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Venkatesh Medamoni — Salesforce Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0A1628;
+    --blue: #1B4FD8;
+    --blue-mid: #2563EB;
+    --blue-light: #DBEAFE;
+    --accent: #F59E0B;
+    --accent-light: #FEF3C7;
+    --white: #FFFFFF;
+    --offwhite: #F8FAFF;
+    --gray-50: #F1F5F9;
+    --gray-100: #E2E8F0;
+    --gray-300: #94A3B8;
+    --gray-500: #64748B;
+    --gray-700: #334155;
+    --text: #0F172A;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--offwhite);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--gray-100);
+    padding: 0 5%;
+    height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700; font-size: 1.25rem;
+    color: var(--navy);
+    letter-spacing: -0.5px;
+  }
+  .nav-logo span { color: var(--blue-mid); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.875rem; font-weight: 500;
+    color: var(--gray-500); text-decoration: none;
+    transition: color 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .nav-links a:hover { color: var(--blue-mid); }
+  .nav-cta {
+    background: var(--blue-mid); color: white;
+    padding: 0.5rem 1.25rem; border-radius: 6px;
+    font-size: 0.875rem; font-weight: 500;
+    text-decoration: none; transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: var(--blue); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex; align-items: center;
+    padding: 100px 5% 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 50%, rgba(27,79,216,0.25) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(245,158,11,0.08) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 700px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(27,79,216,0.2);
+    border: 1px solid rgba(37,99,235,0.4);
+    color: #93C5FD;
+    padding: 0.4rem 1rem; border-radius: 100px;
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-badge::before {
+    content: ''; width: 6px; height: 6px;
+    background: #34D399; border-radius: 50%;
+    animation: pulse 2s ease infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 900;
+    color: white;
+    line-height: 1.08;
+    letter-spacing: -2px;
+    margin-bottom: 1rem;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, #60A5FA, #93C5FD);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero-sub {
+    font-size: 1.15rem; font-weight: 300;
+    color: #94A3B8; line-height: 1.7;
+    max-width: 560px; margin-bottom: 2.5rem;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-sub strong { color: #CBD5E1; font-weight: 500; }
+  .hero-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .btn-primary {
+    background: var(--blue-mid); color: white;
+    padding: 0.85rem 2rem; border-radius: 8px;
+    font-size: 0.95rem; font-weight: 500;
+    text-decoration: none; transition: all 0.2s;
+    box-shadow: 0 4px 20px rgba(37,99,235,0.4);
+  }
+  .btn-primary:hover { background: var(--blue); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(37,99,235,0.5); }
+  .btn-secondary {
+    background: transparent; color: #CBD5E1;
+    padding: 0.85rem 2rem; border-radius: 8px;
+    font-size: 0.95rem; font-weight: 500;
+    text-decoration: none; border: 1px solid rgba(255,255,255,0.15);
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.4); color: white; }
+
+  .hero-stats {
+    position: absolute; right: 5%; bottom: 10%;
+    display: flex; flex-direction: column; gap: 1.5rem;
+    animation: fadeLeft 0.8s 0.4s ease both;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(8px);
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px; text-align: center;
+    min-width: 140px;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; font-weight: 900; color: white;
+    line-height: 1;
+  }
+  .stat-num span { color: var(--accent); }
+  .stat-label { font-size: 0.75rem; color: #64748B; margin-top: 0.3rem; letter-spacing: 0.05em; text-transform: uppercase; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeLeft {
+    from { opacity: 0; transform: translateX(24px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 90px 5%; }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem; font-weight: 500;
+    color: var(--blue-mid); letter-spacing: 0.12em;
+    text-transform: uppercase; margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 700; color: var(--navy);
+    letter-spacing: -1px; line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+  .section-desc {
+    font-size: 1.05rem; color: var(--gray-500);
+    line-height: 1.7; max-width: 560px;
+  }
+
+  /* ── ABOUT ── */
+  #about { background: white; }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center; max-width: 1100px; margin: 0 auto;
+  }
+  .about-photo-wrap {
+    position: relative;
+  }
+  .about-photo-placeholder {
+    width: 100%; aspect-ratio: 4/5;
+    background: linear-gradient(135deg, var(--blue-light) 0%, #BFDBFE 100%);
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 6rem;
+    position: relative; overflow: hidden;
+  }
+  .about-photo-placeholder::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(27,79,216,0.15));
+  }
+  .about-accent-box {
+    position: absolute; bottom: -20px; right: -20px;
+    background: var(--accent); color: var(--navy);
+    padding: 1.2rem 1.5rem; border-radius: 12px;
+    font-weight: 700; font-size: 1rem;
+    box-shadow: 0 8px 24px rgba(245,158,11,0.3);
+  }
+  .about-accent-box small { display: block; font-size: 0.7rem; font-weight: 400; opacity: 0.8; }
+  .about-text .section-title { margin-bottom: 1.25rem; }
+  .about-text p { color: var(--gray-700); line-height: 1.8; margin-bottom: 1rem; font-size: 1rem; }
+  .about-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+  .chip {
+    background: var(--blue-light); color: var(--blue);
+    padding: 0.35rem 0.85rem; border-radius: 100px;
+    font-size: 0.8rem; font-weight: 500;
+  }
+  .chip.gold { background: var(--accent-light); color: #92400E; }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--gray-50); }
+  .skills-header { max-width: 1100px; margin: 0 auto 3rem; }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem; max-width: 1100px; margin: 0 auto;
+  }
+  .skill-card {
+    background: white;
+    border: 1px solid var(--gray-100);
+    border-radius: 14px; padding: 1.75rem;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .skill-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 36px rgba(15,23,42,0.1);
+    border-color: var(--blue-mid);
+  }
+  .skill-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: var(--blue-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; margin-bottom: 1rem;
+  }
+  .skill-card h3 { font-size: 0.85rem; font-weight: 600; color: var(--navy); margin-bottom: 0.75rem; letter-spacing: 0.03em; text-transform: uppercase; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .skill-tag {
+    background: var(--gray-50); color: var(--gray-700);
+    padding: 0.25rem 0.65rem; border-radius: 6px;
+    font-size: 0.78rem; font-family: 'DM Mono', monospace;
+    border: 1px solid var(--gray-100);
+  }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: white; }
+  .exp-header { max-width: 1100px; margin: 0 auto 3rem; }
+  .exp-timeline { max-width: 1100px; margin: 0 auto; position: relative; }
+  .exp-timeline::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 2px; background: linear-gradient(180deg, var(--blue-mid), var(--blue-light));
+  }
+  .exp-item {
+    padding-left: 3rem; position: relative; margin-bottom: 3.5rem;
+  }
+  .exp-item:last-child { margin-bottom: 0; }
+  .exp-dot {
+    position: absolute; left: -7px; top: 6px;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--blue-mid);
+    border: 3px solid white;
+    box-shadow: 0 0 0 2px var(--blue-mid);
+  }
+  .exp-dot.current { background: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+  .exp-meta {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem;
+  }
+  .exp-company { font-size: 0.8rem; font-weight: 600; color: var(--blue-mid); text-transform: uppercase; letter-spacing: 0.08em; }
+  .exp-date {
+    background: var(--gray-50); border: 1px solid var(--gray-100);
+    padding: 0.2rem 0.75rem; border-radius: 100px;
+    font-size: 0.75rem; color: var(--gray-500); font-family: 'DM Mono', monospace;
+  }
+  .exp-date.current { background: var(--accent-light); border-color: #FDE68A; color: #92400E; }
+  .exp-role { font-size: 1.25rem; font-weight: 700; color: var(--navy); margin-bottom: 0.25rem; }
+  .exp-loc { font-size: 0.85rem; color: var(--gray-300); margin-bottom: 1rem; }
+  .exp-bullets { list-style: none; }
+  .exp-bullets li {
+    font-size: 0.95rem; color: var(--gray-700);
+    line-height: 1.7; padding: 0.3rem 0;
+    padding-left: 1.2rem; position: relative;
+  }
+  .exp-bullets li::before {
+    content: '→'; position: absolute; left: 0;
+    color: var(--blue-mid); font-size: 0.85rem;
+  }
+  .exp-bullets li strong { color: var(--navy); }
+  .exp-stack {
+    margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.4rem;
+  }
+  .stack-tag {
+    background: var(--navy); color: #93C5FD;
+    padding: 0.25rem 0.65rem; border-radius: 6px;
+    font-size: 0.75rem; font-family: 'DM Mono', monospace;
+  }
+
+  /* ── CERTIFICATIONS ── */
+  #certifications { background: var(--navy); }
+  #certifications .section-label { color: #93C5FD; }
+  #certifications .section-title { color: white; }
+  #certifications .section-desc { color: #94A3B8; }
+  .certs-header { max-width: 1100px; margin: 0 auto 3rem; }
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem; max-width: 1100px; margin: 0 auto;
+  }
+  .cert-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px; padding: 1.75rem;
+    transition: all 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .cert-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--blue-mid), #60A5FA);
+  }
+  .cert-card:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(37,99,235,0.5);
+    transform: translateY(-4px);
+  }
+  .cert-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+  .cert-name { font-size: 1rem; font-weight: 600; color: white; line-height: 1.4; margin-bottom: 0.5rem; }
+  .cert-org { font-size: 0.8rem; color: #60A5FA; font-weight: 500; }
+  .cert-badge {
+    position: absolute; top: 1rem; right: 1rem;
+    background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3);
+    color: var(--accent); padding: 0.2rem 0.6rem;
+    border-radius: 100px; font-size: 0.7rem; font-weight: 600;
+  }
+
+  /* ── CONTACT ── */
+  #contact { background: white; }
+  .contact-inner {
+    max-width: 700px; margin: 0 auto; text-align: center;
+  }
+  .contact-inner .section-title { margin-bottom: 1rem; }
+  .contact-inner .section-desc { margin: 0 auto 2.5rem; }
+  .contact-cards {
+    display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+  .contact-card {
+    display: flex; align-items: center; gap: 0.75rem;
+    background: var(--gray-50); border: 1px solid var(--gray-100);
+    padding: 0.85rem 1.5rem; border-radius: 10px;
+    font-size: 0.9rem; color: var(--gray-700);
+    text-decoration: none; transition: all 0.2s;
+  }
+  .contact-card:hover { border-color: var(--blue-mid); color: var(--blue-mid); background: var(--blue-light); }
+  .contact-card .icon { font-size: 1.1rem; }
+  .contact-cta {
+    display: inline-block;
+    background: var(--navy); color: white;
+    padding: 1rem 2.5rem; border-radius: 10px;
+    font-size: 1rem; font-weight: 600;
+    text-decoration: none; transition: all 0.2s;
+    box-shadow: 0 4px 20px rgba(10,22,40,0.2);
+  }
+  .contact-cta:hover { background: var(--blue); transform: translateY(-2px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy); color: #475569;
+    text-align: center; padding: 2rem 5%;
+    font-size: 0.85rem;
+  }
+  footer strong { color: #94A3B8; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero-stats { display: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-photo-wrap { max-width: 300px; }
+  }
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .hero h1 { letter-spacing: -1px; }
+    section { padding: 60px 5%; }
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">VM<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:venkatesh.medamoni.sf@gmail.com" class="nav-cta">Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Available for new opportunities</div>
+    <h1>Venkatesh<br><em>Medamoni</em></h1>
+    <p class="hero-sub">
+      Senior Salesforce Developer at <strong>JPMorgan Chase</strong> — delivering
+      <strong>AI-integrated enterprise solutions</strong> across finance, healthcare &amp; energy.
+      Certified PD I &amp; II with 5.5+ years of impact.
+    </p>
+    <div class="hero-actions">
+      <a href="#experience" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-secondary">Get In Touch</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-card">
+      <div class="stat-num"><span>$4M</span>+</div>
+      <div class="stat-label">Operational Savings</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">5.5<span>+</span></div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">5<span>K</span>+</div>
+      <div class="stat-label">Users Impacted</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-photo-wrap reveal">
+      <div class="about-photo-placeholder">👨‍💻</div>
+      <div class="about-accent-box">
+        JPMorgan Chase<br>
+        <small>Current Employer · NY</small>
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <div class="section-label">About Me</div>
+      <h2 class="section-title">Building Salesforce solutions that move the needle</h2>
+      <p>I'm a Senior Salesforce Developer with 5.5+ years of experience architecting enterprise CRM solutions that generate measurable business outcomes. Currently at JPMorgan Chase, where my work on Financial Services Cloud and AI-integrated tooling has contributed to over $4M in operational savings.</p>
+      <p>My expertise spans the full Salesforce ecosystem — from writing efficient Apex and LWC components to managing complex CI/CD pipelines and external integrations with platforms like MuleSoft, Tableau, and ServiceNow.</p>
+      <p>I hold a Master's in Computer Science from the University of Bridgeport and four Salesforce certifications, including the coveted Platform Developer II.</p>
+      <div class="about-chips">
+        <span class="chip">FSC Expert</span>
+        <span class="chip">LWC / Apex</span>
+        <span class="chip">CPQ</span>
+        <span class="chip">DevOps</span>
+        <span class="chip gold">PD I &amp; II Certified</span>
+        <span class="chip gold">Agentforce Specialist</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="skills-header reveal">
+    <div class="section-label">What I Do</div>
+    <h2 class="section-title">Technical Expertise</h2>
+    <p class="section-desc">A broad stack built through real enterprise delivery — not just theory.</p>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-icon">⚡</div>
+      <h3>Salesforce Development</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Apex Triggers</span>
+        <span class="skill-tag">Batch Apex</span>
+        <span class="skill-tag">LWC</span>
+        <span class="skill-tag">Aura</span>
+        <span class="skill-tag">Visualforce</span>
+        <span class="skill-tag">SOQL/SOSL</span>
+        <span class="skill-tag">OmniStudio</span>
+        <span class="skill-tag">Platform Events</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">☁️</div>
+      <h3>Salesforce Clouds</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Financial Services</span>
+        <span class="skill-tag">Sales Cloud</span>
+        <span class="skill-tag">Service Cloud</span>
+        <span class="skill-tag">Marketing Cloud</span>
+        <span class="skill-tag">Experience Cloud</span>
+        <span class="skill-tag">CPQ</span>
+        <span class="skill-tag">Field Service</span>
+        <span class="skill-tag">Veeva CRM</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🔗</div>
+      <h3>Integrations &amp; APIs</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">MuleSoft</span>
+        <span class="skill-tag">REST / SOAP</span>
+        <span class="skill-tag">Heroku Connect</span>
+        <span class="skill-tag">OAuth / SSO</span>
+        <span class="skill-tag">Tableau (Sparkler)</span>
+        <span class="skill-tag">AWS Connect</span>
+        <span class="skill-tag">ServiceNow</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🚀</div>
+      <h3>DevOps &amp; CI/CD</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Jenkins</span>
+        <span class="skill-tag">AutoRABIT</span>
+        <span class="skill-tag">Flosum</span>
+        <span class="skill-tag">Copado</span>
+        <span class="skill-tag">Salesforce DX</span>
+        <span class="skill-tag">GitHub</span>
+        <span class="skill-tag">Unlocked Packages</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🧪</div>
+      <h3>Testing &amp; Automation</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Apex Test Framework</span>
+        <span class="skill-tag">ApexMocks</span>
+        <span class="skill-tag">Jest (LWC)</span>
+        <span class="skill-tag">Provar</span>
+        <span class="skill-tag">Tricentis Tosca</span>
+        <span class="skill-tag">Selenium</span>
+        <span class="skill-tag">ACCELQ</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🔐</div>
+      <h3>Security &amp; Compliance</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Shield Encryption</span>
+        <span class="skill-tag">Permission Sets</span>
+        <span class="skill-tag">GDPR</span>
+        <span class="skill-tag">HIPAA</span>
+        <span class="skill-tag">PingFederate</span>
+        <span class="skill-tag">DKIM / CNAME</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="exp-header reveal">
+    <div class="section-label">Career</div>
+    <h2 class="section-title">Work Experience</h2>
+    <p class="section-desc">Over 5 years across finance, healthcare and renewable energy sectors.</p>
+  </div>
+  <div class="exp-timeline">
+
+    <div class="exp-item reveal">
+      <div class="exp-dot current"></div>
+      <div class="exp-meta">
+        <div>
+          <div class="exp-company">JPMorgan Chase</div>
+          <div class="exp-role">Salesforce Developer</div>
+          <div class="exp-loc">📍 New York, NY, USA</div>
+        </div>
+        <span class="exp-date current">Nov 2023 – Present</span>
+      </div>
+      <ul class="exp-bullets">
+        <li>Architected <strong>Financial Services Cloud</strong> solutions for advisor workflows, client onboarding and wealth management — contributing to <strong>$4M+ in operational savings</strong> and 25% productivity improvement.</li>
+        <li>Integrated Tableau with Salesforce via Canvas Adapter (Sparkler), <strong>reducing report retrieval time by 40%</strong> and enabling deep linking across dashboards.</li>
+        <li>Deployed <strong>Salesforce CPQ</strong> for dynamic pricing and quoting, accelerating the sales cycle by 40% and improving quote accuracy by 30%.</li>
+        <li>Implemented <strong>SSO for Veeva CRM</strong> (OAuth + PingFederate), achieving 100% authentication reliability for 5,000+ users.</li>
+        <li>Built Experience Cloud portals integrating FSC objects (Financial Accounts, Households, Policies), boosting advisor engagement by 35%.</li>
+        <li>Developed Outbound Messaging workflows that reduced manual medical inquiry processing time by 50%.</li>
+      </ul>
+      <div class="exp-stack">
+        <span class="stack-tag">FSC</span><span class="stack-tag">LWC</span><span class="stack-tag">Apex</span><span class="stack-tag">CPQ</span><span class="stack-tag">AutoRABIT</span><span class="stack-tag">Tableau</span><span class="stack-tag">OAuth/SSO</span>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-dot"></div>
+      <div class="exp-meta">
+        <div>
+          <div class="exp-company">DXC Technologies</div>
+          <div class="exp-role">Salesforce Developer</div>
+          <div class="exp-loc">📍 Chennai, India</div>
+        </div>
+        <span class="exp-date">Aug 2021 – Aug 2022</span>
+      </div>
+      <ul class="exp-bullets">
+        <li>Built Apex REST APIs for real-time data sync with marketing platforms, <strong>improving campaign visibility by 50%</strong>.</li>
+        <li>Automated lead nurturing with Process Builder and Flow Builder, <strong>reducing manual intervention by 70%</strong>.</li>
+        <li>Created interactive LWC dashboards with dynamic lead-status filtering, improving sales responsiveness by 25%.</li>
+        <li>Optimized SOQL queries and bulk data operations for governor limit compliance — <strong>system performance up 70%</strong>.</li>
+        <li>Achieved <strong>85%+ Apex and LWC Jest unit test coverage</strong> across all deployments.</li>
+      </ul>
+      <div class="exp-stack">
+        <span class="stack-tag">Apex</span><span class="stack-tag">LWC</span><span class="stack-tag">REST API</span><span class="stack-tag">Flows</span><span class="stack-tag">Salesforce DX</span><span class="stack-tag">SOQL</span>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-dot"></div>
+      <div class="exp-meta">
+        <div>
+          <div class="exp-company">Version 1</div>
+          <div class="exp-role">Salesforce Developer / Admin</div>
+          <div class="exp-loc">📍 Bangalore, India</div>
+        </div>
+        <span class="exp-date">Apr 2019 – Jul 2021</span>
+      </div>
+      <ul class="exp-bullets">
+        <li>Managed end-to-end Residential Solar CRM processes, <strong>reducing task completion time by 25%</strong>.</li>
+        <li>Implemented Field Service Lightning with auto-dispatch, <strong>improving scheduling efficiency by 20%</strong>.</li>
+        <li>Customized Marketing Cloud (Journey Builder, Email Studio) — <strong>email engagement up 35%</strong>.</li>
+        <li>Established CI/CD with Flosum and Jenkins, <strong>cutting release turnaround by 50%</strong>.</li>
+      </ul>
+      <div class="exp-stack">
+        <span class="stack-tag">Marketing Cloud</span><span class="stack-tag">FSL</span><span class="stack-tag">Jenkins</span><span class="stack-tag">Flosum</span><span class="stack-tag">ServiceNow</span><span class="stack-tag">AWS Connect</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="certs-header reveal">
+    <div class="section-label">Credentials</div>
+    <h2 class="section-title">Certifications</h2>
+    <p class="section-desc">Validated expertise across the core Salesforce platform.</p>
+  </div>
+  <div class="certs-grid">
+    <div class="cert-card reveal">
+      <div class="cert-badge">Active</div>
+      <div class="cert-icon">🏅</div>
+      <div class="cert-name">Platform Developer I</div>
+      <div class="cert-org">Salesforce Certified</div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-badge">Active</div>
+      <div class="cert-icon">🏆</div>
+      <div class="cert-name">Platform Developer II</div>
+      <div class="cert-org">Salesforce Certified</div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-badge">Active</div>
+      <div class="cert-icon">⚙️</div>
+      <div class="cert-name">Salesforce Administrator</div>
+      <div class="cert-org">Salesforce Certified</div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-badge">Active</div>
+      <div class="cert-icon">🤖</div>
+      <div class="cert-name">Agentforce Specialist</div>
+      <div class="cert-org">Salesforce Certified</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner reveal">
+    <div class="section-label">Get In Touch</div>
+    <h2 class="section-title">Let's Work Together</h2>
+    <p class="section-desc">Open to Senior Salesforce Developer roles in the US. Let's connect and explore how I can bring value to your team.</p>
+    <div class="contact-cards">
+      <a href="mailto:venkatesh.medamoni.sf@gmail.com" class="contact-card">
+        <span class="icon">✉️</span> venkatesh.medamoni.sf@gmail.com
+      </a>
+      <a href="tel:+15513447599" class="contact-card">
+        <span class="icon">📞</span> +1 (551) 344-7599
+      </a>
+      <a href="https://linkedin.com" target="_blank" class="contact-card">
+        <span class="icon">💼</span> LinkedIn Profile
+      </a>
+    </div>
+    <a href="mailto:venkatesh.medamoni.sf@gmail.com" class="contact-cta">Send Me a Message →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>Venkatesh Medamoni</strong> · Senior Salesforce Developer · Jersey City, NJ ·
+  <a href="mailto:venkatesh.medamoni.sf@gmail.com" style="color:#60A5FA;text-decoration:none;">venkatesh.medamoni.sf@gmail.com</a>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        e.target.style.transitionDelay = (i * 0.07) + 's';
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Active nav link
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--blue-mid)' : '';
+    });
+  });
+</script>
+</body>
+</html>
