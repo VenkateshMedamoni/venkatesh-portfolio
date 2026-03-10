@@ -4,8 +4,7 @@ Personal portfolio website for Venkatesh Medamoni, Senior Salesforce Developer w
 
 ## 🔗 Live Site
 
-> `https://yourusername.github.io/venkatesh-portfolio`
-> *(Update this link after deploying)*
+> https://venkateshmedamoni.github.io/venkatesh-portfolio/
 
 ---
 
